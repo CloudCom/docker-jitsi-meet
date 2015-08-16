@@ -1,0 +1,10 @@
+export IMAGE=robertoandrade/jitsi-meet:preconfigured
+docker pull $IMAGE
+docker stop jitsi-meet
+docker rm jitsi-meet
+docker create --name jitsi-meet \
+	--net host \
+	-v `pwd`/.sip-communicator:/usr/share/jitsi-videobridge/.sip-communicator \
+	-v `pwd`/.ssl:/etc/ssl/nginx \
+	$IMAGE
+docker start jitsi-meet
